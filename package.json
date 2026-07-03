@@ -1,0 +1,31 @@
+{
+  "name": "sodete-pos",
+  "version": "1.0.0",
+  "description": "A scalable SaaS platform for local businesses, combining POS, inventory management, multi-location support, employee permissions, analytics, and real-time business insights. Designed to help retailers, hardware stores, restaurants, and other growing businesses manage their operations from a single system.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "build": "rimraf dist && tsc",
+    "start": "node dist/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DaniDuran09/SoDeTe-POS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DaniDuran09/SoDeTe-POS/issues"
+  },
+  "homepage": "https://github.com/DaniDuran09/SoDeTe-POS#readme",
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "@types/pg": "^8.20.0",
+    "prisma": "^7.8.0",
+    "rimraf": "^6.1.3",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}
