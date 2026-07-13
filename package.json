@@ -1,5 +1,5 @@
 {
-  "name": "sodete-pos",
+  "name": "origen-pos",
   "version": "1.0.0",
   "description": "A scalable SaaS platform for local businesses, combining POS, inventory management, multi-location support, employee permissions, analytics, and real-time business insights. Designed to help retailers, hardware stores, restaurants, and other growing businesses manage their operations from a single system.",
   "main": "index.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DaniDuran09/SoDeTe-POS.git"
+    "url": "git+https://github.com/DaniDuran09/origen-POS.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DaniDuran09/SoDeTe-POS/issues"
+    "url": "https://github.com/DaniDuran09/origen-POS/issues"
   },
-  "homepage": "https://github.com/DaniDuran09/SoDeTe-POS#readme",
+  "homepage": "https://github.com/DaniDuran09/origen-POS#readme",
   "devDependencies": {
     "@types/node": "^26.1.0",
     "@types/pg": "^8.20.0",

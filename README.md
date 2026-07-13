@@ -1,6 +1,6 @@
-# SoDeTe POS
+# ORIGEN POS
 
-Backend for the SoDeTe POS system built with **Node.js**, **TypeScript**, **Express**, **Prisma ORM**, and **PostgreSQL**.
+Backend for the ORIGEN POS system built with **Node.js**, **TypeScript**, **Express**, **Prisma ORM**, and **PostgreSQL**.
 
 ---
 
@@ -28,7 +28,7 @@ docker compose version
 ```bash
 git clone <repository-url>
 
-cd SoDeTe-POS
+cd ORIGEN-POS
 ```
 
 ---

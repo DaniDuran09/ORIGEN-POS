@@ -7,6 +7,9 @@ datasource db {
   provider = "postgresql"
 }
 
+/// falta presentación y variantes
+/// presentación es : el mismo solo azul , rojo , regro
+
 model Product {
   id            Int                   @id @default(autoincrement())
   name          String
