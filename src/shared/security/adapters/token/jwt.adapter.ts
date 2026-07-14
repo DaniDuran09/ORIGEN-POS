@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import type { StringValue } from 'ms';
-import type { TokenAdapter } from './token.adapter.js';
+import type { TokenAdapter } from '../../interfaces/token.adapter.js';
 
 export class JwtAdapter implements TokenAdapter {
     constructor(private readonly secret: string) { }

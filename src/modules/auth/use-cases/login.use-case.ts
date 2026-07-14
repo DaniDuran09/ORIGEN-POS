@@ -10,8 +10,15 @@ export class LoginUseCase {
         private readonly tokenAdapter: TokenAdapter
     ) { }
 
-    async execute(email: string, password: string) {
+    async execute(
+        email: string,
+        password: string
+    ) {
+        const user = await this.userRepository.findByEmail(email);
 
+        return {
+            accessToken: "",
+        }
     }
 
 }
