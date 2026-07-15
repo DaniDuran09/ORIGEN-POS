@@ -1,3 +1,4 @@
+import { UnauthorizedError } from "../../../shared/errors/http-errors.js";
 import type { HashAdapter } from "../../../shared/security/interfaces/hash.adapter.js";
 import type { TokenAdapter } from "../../../shared/security/interfaces/token.adapter.js";
 import type { LoginRequestDto } from "../dtos/login-request.dto.js";
@@ -15,7 +16,7 @@ export class LoginUseCase {
         const user = await this.userRepository.findByEmail(dto.email);
 
         if (!user) {
-            throw new Error("Invalid credentials");
+            throw new UnauthorizedError("Invalid credentials")
         }
 
         const isValidPassword = await this.hashAdapter.compare(
@@ -24,7 +25,7 @@ export class LoginUseCase {
         )
 
         if (!isValidPassword) {
-            throw new Error("Invalid credentials");
+            throw new UnauthorizedError("Invalid credentials")
         }
 
         const accessToken = await this.tokenAdapter.sign({
