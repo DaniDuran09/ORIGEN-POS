@@ -1,5 +1,6 @@
 import { env } from "../../config/env.js";
 import { prisma } from "../../database/prisma.js";
+import { AuthMiddleware } from "../../shared/middlewares/auth.middleware.js";
 
 import { BcryptAdapter } from "../../shared/security/adapters/hash/bcrypt.adapter.js";
 import { JwtAdapter } from "../../shared/security/adapters/token/jwt.adapter.js";
@@ -18,6 +19,8 @@ const tokenAdapter = new JwtAdapter(
     env.JWT_ACCESS_EXPIRES_IN,
 );
 
+const authMiddleware = new AuthMiddleware(tokenAdapter);
+
 const loginUseCase = new LoginUseCase(
     userRepository,
     hashAdapter,
@@ -26,4 +29,4 @@ const loginUseCase = new LoginUseCase(
 
 const authController = new AuthController(loginUseCase);
 
-export const authRoutes = createAuthRoutes(authController);
+export const authRoutes = createAuthRoutes(authController, authMiddleware);

@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import type { TokenAdapter } from "../security/interfaces/token.adapter.js";
 import { UnauthorizedError } from "../errors/http-errors.js";
+import type { JwtPayload } from "jsonwebtoken";
 
 
 
@@ -26,8 +27,9 @@ export class AuthMiddleware {
             throw new UnauthorizedError("Invalid authorization header");
         }
 
-        await this.tokenAdapter.verify(token);
+        const payload = await this.tokenAdapter.verify<JwtPayload>(token);
 
+        req.user = payload;
         next();
 
     }

@@ -1,6 +1,8 @@
 import jwt, { type Secret } from "jsonwebtoken";
-import type { TokenAdapter } from "../../interfaces/token.adapter.js";
 import type { StringValue } from "ms";
+
+import { UnauthorizedError } from "../../../errors/http-errors.js";
+import type { TokenAdapter } from "../../interfaces/token.adapter.js";
 
 export class JwtAdapter implements TokenAdapter {
 
@@ -16,7 +18,19 @@ export class JwtAdapter implements TokenAdapter {
     }
 
     async verify<T>(token: string): Promise<T> {
-        return jwt.verify(token, this.secret) as T;
+        try {
+            return jwt.verify(token, this.secret) as T;
+        } catch (error) {
+            if (error instanceof jwt.TokenExpiredError) {
+                throw new UnauthorizedError("Token expired");
+            }
+
+            if (error instanceof jwt.JsonWebTokenError) {
+                throw new UnauthorizedError("Invalid token");
+            }
+
+            throw error;
+        }
     }
 
 }
