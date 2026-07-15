@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import "dotenv/config";
+import type { StringValue } from "ms";
 
 const getEnv = (key: string): string => {
     const value = process.env[key];
@@ -13,11 +14,11 @@ const getEnv = (key: string): string => {
 export const env = {
     PORT: Number(process.env.PORT ?? 3000),
 
-    DATABASE_URL: getEnv('DATABASE_URL'),
+    DATABASE_URL: getEnv("DATABASE_URL"),
 
-    JWT_SECRET: getEnv('JWT_SECRET'),
-    JWT_ACCESS_EXPIRES_IN: getEnv('JWT_ACCESS_EXPIRES_IN'),
-    JWT_REFRESH_EXPIRES_IN: getEnv('JWT_REFRESH_EXPIRES_IN'),
+    JWT_SECRET: getEnv("JWT_SECRET"),
+    JWT_ACCESS_EXPIRES_IN: getEnv("JWT_ACCESS_EXPIRES_IN") as StringValue,
+    JWT_REFRESH_EXPIRES_IN: getEnv("JWT_REFRESH_EXPIRES_IN") as StringValue,
 
-    BCRYPT_SALT_ROUNDS: Number(getEnv('BCRYPT_SALT_ROUNDS')),
+    BCRYPT_SALT_ROUNDS: Number(getEnv("BCRYPT_SALT_ROUNDS")),
 } as const;

@@ -1,8 +1,8 @@
 import { env } from "../../config/env.js";
 import { prisma } from "../../database/prisma.js";
+
 import { BcryptAdapter } from "../../shared/security/adapters/hash/bcrypt.adapter.js";
 import { JwtAdapter } from "../../shared/security/adapters/token/jwt.adapter.js";
-
 
 import { AuthController } from "./controllers/auth.controller.js";
 import { PrismaUserRepository } from "./repositories/prisma-user.repository.js";
@@ -12,7 +12,11 @@ import { LoginUseCase } from "./use-cases/login.use-case.js";
 const userRepository = new PrismaUserRepository(prisma);
 
 const hashAdapter = new BcryptAdapter(env.BCRYPT_SALT_ROUNDS);
-const tokenAdapter = new JwtAdapter(env.JWT_SECRET);
+
+const tokenAdapter = new JwtAdapter(
+    env.JWT_SECRET,
+    env.JWT_ACCESS_EXPIRES_IN,
+);
 
 const loginUseCase = new LoginUseCase(
     userRepository,
