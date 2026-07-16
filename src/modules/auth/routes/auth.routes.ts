@@ -8,15 +8,23 @@ export const createAuthRoutes = (
 ): Router => {
     const router = Router();
 
-    router.post('/login', controller.login.bind(controller));
+    router.post(
+        "/login",
+        validate(loginRequestSchema),
+        controller.login,
+    );
+
+    router.post(
+        "/register",
+        validate(registerRequestSchema),
+        controller.register,
+    );
 
     router.get(
         "/me",
-        authMiddleware.handle.bind(authMiddleware),
-        (_req, res) => {
-            res.json({ ok: true });
-        }
-    )
+        authMiddleware.handle,
+        controller.me,
+    );
 
     return router;
 }

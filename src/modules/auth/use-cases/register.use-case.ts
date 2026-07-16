@@ -1,33 +1,33 @@
+import { email } from "zod";
 import { AuthErrors } from "../../../shared/errors/auth.errors.js";
-import { UnauthorizedError } from "../../../shared/errors/http-errors.js";
+import { ConflictError } from "../../../shared/errors/http-errors.js";
 import type { HashAdapter } from "../../../shared/security/interfaces/hash.adapter.js";
 import type { TokenAdapter } from "../../../shared/security/interfaces/token.adapter.js";
-import type { LoginRequestDto } from "../dtos/login-request.dto.js";
+import type { RegisterRequestDto } from "../dtos/register-request.dto.js";
 import type { UserRepository } from "../repositories/user.repository.js";
 
-export class LoginUseCase {
+
+export class RegisterUseCase {
 
     constructor(
         private readonly userRepository: UserRepository,
         private readonly hashAdapter: HashAdapter,
-        private readonly tokenAdapter: TokenAdapter
+        private readonly tokenAdapter: TokenAdapter,
     ) { }
 
-    async execute(dto: LoginRequestDto) {
-        const user = await this.userRepository.findByEmail(dto.email);
+    async execute(dto: RegisterRequestDto) {
+        const existsUser = await this.userRepository.findByEmail(dto.email);
 
-        if (!user) {
-            throw new UnauthorizedError(AuthErrors.INVALID_CREDENTIALS)
+        if (existsUser) {
+            throw new ConflictError(AuthErrors.EMAIL_ALREADY_EXISTS);
         }
 
-        const isValidPassword = await this.hashAdapter.compare(
-            dto.password,
-            user.passwordHash
-        )
+        const passwordHash = await this.hashAdapter.hash(dto.password);
 
-        if (!isValidPassword) {
-            throw new UnauthorizedError(AuthErrors.INVALID_CREDENTIALS)
-        }
+        const user = await this.userRepository.create(
+            dto,
+            passwordHash
+        );
 
         const accessToken = await this.tokenAdapter.sign({
             sub: user.id,
@@ -42,7 +42,8 @@ export class LoginUseCase {
                 lastName: user.lastName,
                 email: user.email,
             }
-        };
+        }
+
     }
 
 }
