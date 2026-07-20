@@ -1,4 +1,3 @@
-import { email } from "zod";
 import { AuthErrors } from "../../../shared/errors/auth.errors.js";
 import { ConflictError } from "../../../shared/errors/http-errors.js";
 import type { HashAdapter } from "../../../shared/security/interfaces/hash.adapter.js";

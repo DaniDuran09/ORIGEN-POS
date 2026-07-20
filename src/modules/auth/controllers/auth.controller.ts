@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
 import type { LoginUseCase } from "../use-cases/login.use-case.js";
-import { loginRequestSchema } from "../dtos/login-request.dto.js";
+import type { LoginRequestDto } from "../dtos/login-request.dto.js";
 import type { RegisterUseCase } from "../use-cases/register.use-case.js";
-import { registerRequestSchema } from "../dtos/register-request.dto.js";
+import type { RegisterRequestDto } from "../dtos/register-request.dto.js";
 
 
 export class AuthController {
@@ -12,17 +12,17 @@ export class AuthController {
         private readonly registerUseCase: RegisterUseCase,
     ) { }
 
-    async login(req: Request, res: Response): Promise<void> {
+    login = async (req: Request, res: Response): Promise<void> => {
 
-        const dto = loginRequestSchema.parse(req.body)
+        const dto = req.body as LoginRequestDto;
 
         const result = await this.loginUseCase.execute(dto)
 
         res.status(200).json(result);
     }
 
-    async register(req: Request, res: Response): Promise<void> {
-        const dto = registerRequestSchema.parse(req.body);
+    register = async (req: Request, res: Response): Promise<void> => {
+        const dto = req.body as RegisterRequestDto;
 
         const result = await this.registerUseCase.execute(dto);
 

@@ -9,6 +9,7 @@ import { AuthController } from "./controllers/auth.controller.js";
 import { PrismaUserRepository } from "./repositories/prisma-user.repository.js";
 import { createAuthRoutes } from "./routes/auth.routes.js";
 import { LoginUseCase } from "./use-cases/login.use-case.js";
+import { RegisterUseCase } from "./use-cases/register.use-case.js";
 
 const userRepository = new PrismaUserRepository(prisma);
 
@@ -27,6 +28,12 @@ const loginUseCase = new LoginUseCase(
     tokenAdapter,
 );
 
-const authController = new AuthController(loginUseCase);
+const registerUseCase = new RegisterUseCase(
+    userRepository,
+    hashAdapter,
+    tokenAdapter,
+);
+
+const authController = new AuthController(loginUseCase, registerUseCase);
 
 export const authRoutes = createAuthRoutes(authController, authMiddleware);

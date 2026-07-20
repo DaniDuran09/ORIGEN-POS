@@ -1,6 +1,9 @@
 import { Router } from "express";
 import type { AuthController } from "../controllers/auth.controller.js";
 import { AuthMiddleware } from "../../../shared/middlewares/auth.middleware.js";
+import { validate } from "../../../shared/middlewares/validate.middleware.js";
+import { loginRequestSchema } from "../dtos/login-request.dto.js";
+import { registerRequestSchema } from "../dtos/register-request.dto.js";
 
 export const createAuthRoutes = (
     controller: AuthController,
@@ -20,11 +23,11 @@ export const createAuthRoutes = (
         controller.register,
     );
 
-    router.get(
-        "/me",
-        authMiddleware.handle,
-        controller.me,
-    );
+    // router.get(
+    //     "/me",
+    //     authMiddleware.handle,
+    //     controller.me,
+    // );
 
     return router;
 }

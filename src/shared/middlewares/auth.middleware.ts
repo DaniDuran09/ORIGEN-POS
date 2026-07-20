@@ -10,11 +10,11 @@ export class AuthMiddleware {
         private readonly tokenAdapter: TokenAdapter,
     ) { }
 
-    async handle(
+    handle = async (
         req: Request,
         _res: Response,
         next: NextFunction,
-    ): Promise<void> {
+    ): Promise<void> => {
         const authorization = req.headers.authorization;
 
         if (!authorization) {

@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "./app.error.js";
+import { ZodError } from "zod";
 
 
 
@@ -12,6 +13,15 @@ export function errorHandler(
     if (error instanceof AppError) {
         res.status(error.statusCode).json({
             message: error.message,
+        });
+
+        return;
+    }
+
+    if (error instanceof ZodError) {
+        res.status(400).json({
+            message: "Validation failed",
+            errors: error.issues,
         });
 
         return;
